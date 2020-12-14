@@ -1,6 +1,6 @@
 # ece370_final_project
 
-Instructions to install, download, and execute Huy Vinh Le's final project
+Instructions to download, install, and execute Huy Vinh Le's final project
 
 1. Clone GitHub Repository
   `git clone https://github.com/hvle/ece370_final_project`
