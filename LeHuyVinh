@@ -1,0 +1,105 @@
+#!/usr/bin/env bash
+
+INSTALL_DIR=/home/user/etc
+INSTALL_BIN=/home/user/bin
+PROJECT_NAME=LeHuyVinh
+
+Install()
+{
+    # Making folder for install
+    mkdir -p $INSTALL_DIR/$PROJECT_NAME
+    mkdir -p $INSTALL_BIN
+
+    # Copy bin into bin directory
+    cp $PROJECT_NAME $INSTALL_BIN/
+    
+    # Copy files into /etc
+    cp -r * $INSTALL_DIR/$PROJECT_NAME/
+
+    # Add to path
+    export PATH=$PATH:$INSTALL_BIN/
+
+}
+
+Uninstall()
+{
+    # Clearing Gazebo simulation
+    echo ""
+    echo "Clearing Models..."
+    echo ""
+    $INSTALL_DIR/$PROJECT_NAME/models/clearAll.sh
+    
+    # Removing from /bin
+    rm $INSTALL_BIN/$PROJECT_NAME
+    
+    # Removing from /etc
+    rm -r $INSTALL_DIR/$PROJECT_NAME
+
+    # Removing from path
+    # export PATH=/opt/ros/kinetic/share/euslisp/jskeus/eus//Linux64/bin:/opt/ros/kinetic/bin:/opt/ros/kinetic/share/euslisp/jskeus/eus//Linux64/bin:/opt/ros/kinetic/share/euslisp/jskeus/eus//Linux64/bin:/opt/ros/kinetic/share/euslisp/jskeus/eus//Linux64/bin:/opt/ros/kinetic/share/euslisp/jskeus/eus//Linux64/bin:/opt/ros/kinetic/share/euslisp/jskeus/eus//Linux64/bin:/usr/local/share/shell/.nvm/versions/node/v6.11.2/bin:/usr/local/nvidia/bin:/usr/local/cuda/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+    echo ""
+    echo "Program Successfully Uninstalled..."
+    echo ""
+}
+
+Start()
+{
+    # rosnode kill hvle_move_robot
+
+    # cd $INSTALL_DIR/$PROJECT_NAME/models
+    $INSTALL_DIR/$PROJECT_NAME/models/loadAll.sh
+    echo " "
+    echo "---------------------"
+    echo "Loading all models..."
+    echo "---------------------"
+    echo " "    
+
+    # cd ../src
+    sleep 5
+    echo " "
+    echo "----------------------------"
+    echo "Starting robot controller..."
+    python $INSTALL_DIR/$PROJECT_NAME/src/move_robot.py &
+    echo "Started..."
+    echo "----------------------------"
+    echo " "
+    echo " "
+    echo "-------------------------------"
+    echo "Starting keyboard controller..."
+    echo "Started..."
+    echo "-------------------------------"
+    echo " "
+    python $INSTALL_DIR/$PROJECT_NAME/src/keyboard_input.py
+
+}
+
+Help()
+{
+    echo ' '
+    echo '-------------------------------------------------------'
+    echo '--------------- LeHuyVinh Final Project ---------------'
+    echo '-------------------------------------------------------'
+    echo 'install                         : Install the program'
+    echo 'uninstall                       : Uninstall the program'
+    echo 'start                           : Starts Program'
+    echo 'help                            : Shows this dialog'
+    echo ' '
+}
+
+case $1 in 
+'install')
+    Install
+    ;;
+'uninstall')
+    Uninstall
+    ;;
+'help')
+    Help
+    ;;
+'start')
+    Start
+    ;;
+*) 
+    Help
+    ;;
+    esac

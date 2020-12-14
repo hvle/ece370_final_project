@@ -1,0 +1,219 @@
+<sdf version="1.7">
+    <model name='dd_robot'>
+    <link name='chassis'>
+        <pose>-0.1 0 0.1 0 0 0</pose>
+        <static>true</static>
+        <inertial>
+		<mass>0.1</mass>
+	</inertial>
+        <collision name='collision'>
+            <geometry>
+                <box>
+                    <size>0.4 0.5 0.1 </size>
+                </box>
+            </geometry>
+        </collision>
+        <visual name='visual'>
+            <geometry>
+                <box>
+                    <size>0.4 0.5 0.1 </size>
+                </box>
+            </geometry>
+        </visual>
+        </link>
+
+        <!-- Front Left Wheel -->
+        <link name='left_wheel'>
+            <pose>0.25 0.30 0 0 1.5707 1.5707</pose>
+            <collision name='lw_collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.24</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+                <friction>
+                    <ode>
+                        <mu>1.0</mu>
+                        <mu2>1.0</mu2>
+                        <slip1>0.0</slip1>
+                        <slip2>0.0</slip2>
+                    </ode>
+                </friction>
+            </collision>
+            <visual name='lw_visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.24</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </visual>
+        </link>
+
+        <!-- Front Right Wheel -->
+        <link name='right_wheel'>
+            <pose>0.25 -0.30 0 0 1.5707 1.5707</pose>
+            <collision name='rw_collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.24</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+                <surface>
+                <friction>
+                    <ode>
+                        <mu>1.0</mu>
+                        <mu2>1.0</mu2>
+                        <slip1>0.0</slip1>
+                        <slip2>0.0</slip2>
+                    </ode>
+                </friction>
+                </surface>
+            </collision>
+            <visual name='rw_visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.24</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </visual>
+        </link>
+
+        <!-- Rear Left Wheel -->
+        <link name='rear_left_wheel'>
+            <pose>-.25 0.30 0.1 0 1.5707 1.5707</pose>
+            <collision name='rlw_collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.24</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+                <friction>
+                    <ode>
+                        <mu>1.0</mu>
+                        <mu2>1.0</mu2>
+                        <slip1>0.0</slip1>
+                        <slip2>0.0</slip2>
+                    </ode>
+                </friction>
+            </collision>
+            <visual name='rlw_visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.24</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </visual>
+        </link>
+
+        <!-- Rear Right Wheel -->
+        <link name='rear_right_wheel'>
+            <pose>-.25 -0.30 0.1 0 1.5707 1.5707</pose>
+            <collision name='rrw_collision'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.24</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+                <surface>
+                <friction>
+                    <ode>
+                        <mu>1.0</mu>
+                        <mu2>1.0</mu2>
+                        <slip1>0.0</slip1>
+                        <slip2>0.0</slip2>
+                    </ode>
+                </friction>
+                </surface>
+            </collision>
+            <visual name='rrw_visual'>
+                <geometry>
+                    <cylinder>
+                        <radius>0.24</radius>
+                        <length>0.05</length>
+                    </cylinder>
+                </geometry>
+            </visual>
+        </link>
+
+        <!-- Front Left Joint -->
+        <joint type='revolute' name='left_wheel_hinge'>
+            <pose> 0 0 -0.03 0 0 0 </pose>
+            <child>left_wheel</child>
+            <parent>chassis</parent>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+            <dynamics>
+		<friction>100.0</friction>
+		<spring_stiffness>0.1</spring_stiffness>
+	    </dynamics>
+	    <limit>
+		<effort>0.01</effort>
+  		<velocity>0.005</velocity>
+	    </limit>
+        </joint>
+
+        <!-- Front Right Joint -->
+        <joint type='revolute' name='right_wheel_hinge'>
+            <pose> 0 0 0.03 0 0 0 </pose>
+            <child>right_wheel</child>
+            <parent>chassis</parent>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+            <dynamics>
+		<friction>100.0</friction>
+		<spring_stiffness>0.1</spring_stiffness>
+	    </dynamics>
+	    <limit>
+		<effort>0.01</effort>
+  		<velocity>0.005</velocity>
+	    </limit>
+        </joint>
+
+        <!-- Rear Left Joint -->
+        <joint type='revolute' name='rear_left_wheel_hinge'>
+            <pose> 0 0 -0.03 0 0 0 </pose>
+            <child>rear_left_wheel</child>
+            <parent>chassis</parent>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+            <dynamics>
+		<friction>100.0</friction>
+		<spring_stiffness>0.1</spring_stiffness>
+	    </dynamics>
+	    <limit>
+		<effort>0.01</effort>
+  		<velocity>0.005</velocity>
+	    </limit>
+        </joint>
+
+        <!-- Rear Right Joint -->
+        <joint type='revolute' name='rear_right_wheel_hinge'>
+            <pose> 0 0 -0.03 0 0 0 </pose>
+            <child>rear_right_wheel</child>
+            <parent>chassis</parent>
+            <axis>
+                <xyz>0 0 1</xyz>
+            </axis>
+            <dynamics>
+		<friction>100.0</friction>
+		<spring_stiffness>0.1</spring_stiffnessF>
+	    </dynamics>
+	    <limit>
+		<effort>0.01</effort>
+  		<velocity>0.005</velocity>
+	    </limit>
+        </joint>
+
+
+    </model>
+</sdf>
